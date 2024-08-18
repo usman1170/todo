@@ -50,6 +50,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   gauge_indicator: ^0.4.3
   provider: ^6.1.2
+  curved_navigation_bar: ^1.0.6
 
 dev_dependencies:
   flutter_test:

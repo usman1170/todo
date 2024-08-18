@@ -5,7 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/provider/time_provider.dart';
-import 'package:todo/screens/home.dart';
+import 'package:todo/screens/bottom_bar.dart';
 import 'package:todo/theme/app_theme.dart';
 import 'package:todo/theme/bloc/theme_cubit.dart';
 
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme.darkTheme,
             themeMode: state,
             debugShowCheckedModeBanner: false,
-            home: const HomeScreen(),
+            home: const BottomBar(),
           ),
         );
       }),

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gauge_indicator/gauge_indicator.dart';
 import 'package:provider/provider.dart';
@@ -6,8 +5,6 @@ import 'package:todo/config/helpers.dart';
 import 'package:todo/main.dart';
 import 'package:todo/provider/time_provider.dart';
 import 'package:todo/theme/app_colors.dart';
-import 'package:todo/theme/bloc/theme_cubit.dart';
-import 'package:todo/theme/theme_mode.dart';
 
 class AppBar2 extends StatelessWidget {
   const AppBar2({super.key});
@@ -22,46 +19,49 @@ class AppBar2 extends StatelessWidget {
       height: mq.height * .15,
       child: Column(
         children: [
+          const SizedBox(
+            height: 4,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: mq.height * .013,
+                  ),
+                  Text(
+                    MyDateUtils.getDateWithMonthName(DateTime.now()),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.lightColor,
+                    ),
+                  ),
+                  Text(
+                    MyDateUtils.getDayName(DateTime.now()),
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.lightColor,
+                    ),
+                  ),
+                  Text(
+                    MyDateUtils.getFormattedTime(timeProvider.currentTime),
+                    style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.lightColor),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: mq.width * .04,
+              ),
               Row(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: mq.height * .013,
-                      ),
-                      Text(
-                        MyDateUtils.getDateWithMonthName(DateTime.now()),
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.lightColor,
-                        ),
-                      ),
-                      Text(
-                        MyDateUtils.getDayName(DateTime.now()),
-                        style: const TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.lightColor,
-                        ),
-                      ),
-                      Text(
-                        MyDateUtils.getFormattedTime(timeProvider.currentTime),
-                        style: const TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.lightColor),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: mq.width * .04,
-                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -94,7 +94,7 @@ class AppBar2 extends StatelessWidget {
                                 height: mq.height * .03,
                               ),
                               progressBar: const GaugeProgressBar.rounded(
-                                color: Color.fromARGB(255, 70, 100, 222),
+                                color: Color.fromARGB(255, 8, 198, 15),
                               ),
                             ),
                           ),
@@ -113,24 +113,10 @@ class AppBar2 extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    width: 8,
+                  )
                 ],
-              ),
-              IconButton(
-                onPressed: () {
-                  log(DateTime.now().toString());
-                  if (context.isDarkMode) {
-                    context.read<ThemeCubit>().updateTheme(ThemeMode.light);
-                  } else {
-                    context.read<ThemeCubit>().updateTheme(ThemeMode.dark);
-                  }
-                },
-                icon: Icon(
-                  context.isDarkMode
-                      ? Icons.brightness_7
-                      : Icons.brightness_4_outlined,
-                  size: 28,
-                  color: Colors.white,
-                ),
               ),
             ],
           ),

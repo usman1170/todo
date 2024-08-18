@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo/config/strings.dart';
@@ -30,11 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
             end: Alignment.bottomRight,
             colors: context.isDarkMode
                 ? [Colors.black, Colors.black]
-                : [
-                    Colors.blue.shade500,
-                    Colors.blue.shade600,
-                    Colors.blue.shade900,
-                  ],
+                : AppColors.blueGradient,
           ),
         ),
         child: Padding(
@@ -100,6 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             MyString.doneAllTask,
                             style: TextStyle(
                               fontSize: 18,
+                              color: Colors.white,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -113,15 +109,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 8, right: 4),
-        child: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(
-            Icons.add,
-          ),
-        ),
-      ),
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 8, right: 4),
+      //   child: FloatingActionButton(
+      //     onPressed: () {
+      //       Navigator.push(
+      //           context,
+      //           CupertinoPageRoute(
+      //             builder: (context) => const AddTaskScreen(),
+      //           ));
+      //     },
+      //     child: const Icon(
+      //       Icons.add,
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
