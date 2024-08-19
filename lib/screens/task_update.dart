@@ -6,22 +6,21 @@ import 'package:todo/config/components/custom_button.dart';
 import 'package:todo/config/components/snakbars.dart';
 import 'package:todo/config/strings.dart';
 import 'package:todo/main.dart';
+import 'package:todo/models/task_model.dart';
 import 'package:todo/theme/app_colors.dart';
 import 'package:todo/theme/theme_mode.dart';
 
-class AddTaskScreen extends StatefulWidget {
-  AddTaskScreen({super.key, required this.backButtom});
+class TaskUpdateScreen extends StatefulWidget {
+  const TaskUpdateScreen({super.key, required this.taskModel});
+  final TaskModel taskModel;
 
-  bool backButtom;
   @override
-  State<AddTaskScreen> createState() => _AddTaskScreenState();
+  State<TaskUpdateScreen> createState() => _TaskUpdateScreenState();
 }
 
-class _AddTaskScreenState extends State<AddTaskScreen> {
+class _TaskUpdateScreenState extends State<TaskUpdateScreen> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _description = TextEditingController();
-  DateTime? time;
-  DateTime? date;
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -44,7 +43,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             title: const Text(
-              "Add New Task",
+              "Update Task",
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -52,17 +51,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             centerTitle: true,
             backgroundColor: Colors.transparent,
             // backgroundColor: context.isDarkMode ? Colors.black : Colors.white,
-            leading: widget.backButtom
-                ? IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                    ),
-                  )
-                : const SizedBox(),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ),
+            ),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -129,7 +126,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           titleColor: Colors.white,
                           height: 60,
                           width: mq.width * .4,
-                          title: "Add Task",
+                          title: "Update Task",
                           bgColor: context.isDarkMode
                               ? AppColors.primaryColor.withOpacity(.3)
                               : Colors.blue.shade900.withOpacity(.7),
@@ -139,7 +136,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               Snakbars.redSnackBar(
                                   context, "Please fill all the details");
                             } else {
-                              Snakbars.greenSnackBar(context, "Task Added");
+                              Snakbars.greenSnackBar(context, "Task Updated");
                             }
                           },
                         ),
@@ -261,6 +258,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   }
 
   Widget _inputField({bool isDescription = false}) {
+    if (isDescription) {
+      _description.text = widget.taskModel.subtitle;
+    } else {
+      _title.text = widget.taskModel.title;
+    }
     return TextFormField(
       controller: isDescription ? _description : _title,
       enableSuggestions: true,
@@ -276,6 +278,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         }
       },
       cursorColor: Colors.white,
+      // initialValue:
+      //     isDescription ? widget.taskModel.subtitle : widget.taskModel.title,
       decoration: InputDecoration(
         hintText: isDescription ? "Enter description" : "Enter title",
         hintStyle: const TextStyle(

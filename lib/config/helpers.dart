@@ -13,6 +13,10 @@ class MyDateUtils {
     return DateFormat('h:mm:ss a').format(date);
   }
 
+  static String getTimeWithoutSeconds(DateTime date) {
+    return DateFormat('h:mm a').format(date);
+  }
+
   static String getDashedDate(DateTime date) {
     return DateFormat('dd-MM-yyyy').format(date);
   }

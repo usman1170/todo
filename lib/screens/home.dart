@@ -1,8 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:todo/config/routes/routes.dart';
 import 'package:todo/config/strings.dart';
 import 'package:todo/main.dart';
+import 'package:todo/models/task_model.dart';
+import 'package:todo/screens/task_update.dart';
 import 'package:todo/screens/widgets/appbar.dart';
 import 'package:todo/screens/widgets/task_widget.dart';
 import 'package:todo/theme/app_colors.dart';
@@ -73,7 +76,31 @@ class _HomeScreenState extends State<HomeScreen> {
                             key: Key(
                               index.toString(),
                             ),
-                            child: const TaskCardWidget(),
+                            child: TaskCardWidget(
+                              taskModel: TaskModel(
+                                id: "1",
+                                title: "title",
+                                subtitle: "subtitle",
+                                createdTime: DateTime.now(),
+                                createdDate: DateTime.now(),
+                                isCompleted: false,
+                              ),
+                              ontap: () {
+                                Routes().push(
+                                  context,
+                                  TaskUpdateScreen(
+                                    taskModel: TaskModel(
+                                      id: "1",
+                                      title: "hello this is title",
+                                      subtitle: "subtitle is here",
+                                      createdTime: DateTime.now(),
+                                      createdDate: DateTime.now(),
+                                      isCompleted: false,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           );
                         },
                       )
